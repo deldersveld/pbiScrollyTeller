@@ -1,0 +1,26 @@
+{
+  "visual": {
+    "name": "scrollyteller",
+    "displayName": "ScrollyTeller",
+    "guid": "scrollytellerE1D30D6506E94BB5AB73806C9D68D079",
+    "visualClassName": "Visual",
+    "version": "1.0.0",
+    "description": "Enables scrollytelling with parallax effect",
+    "supportUrl": "https://github.com/deldersveld/pbiScrollyTeller",
+    "gitHubUrl": "https://github.com/deldersveld/pbiScrollyTeller"
+  },
+  "apiVersion": "1.7.0",
+  "author": {
+    "name": "David Eldersveld"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": [
+    "node_modules/powerbi-visuals-utils-dataviewutils/lib/index.js"
+  ],
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": "dependencies.json",
+  "stringResources": []
+}
