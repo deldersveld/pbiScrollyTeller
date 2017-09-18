@@ -655,7 +655,6 @@ var powerbi;
                         var optionFontFamily = this.settings.dataPoint.fontFamily;
                         var optionFontWeight = this.settings.dataPoint.fontWeight;
                         var optionTextAlign = this.settings.dataPoint.textAlign;
-                        var optionAlternateGrayscale = this.settings.dataPoint.alternateGrayscale;
                         var viewModel = visualTransform(options, this.host);
                         //console.log('ViewModel', viewModel);
                         var data = viewModel.scrollyDataPoints;
@@ -673,10 +672,6 @@ var powerbi;
                                 el.style.backgroundRepeat = "no-repeat";
                                 el.style.backgroundSize = "100%";
                                 el.style.transform = "translateZ(-1px) scale(1.5)";
-                                if (optionAlternateGrayscale === true) {
-                                    el.style.filter = "grayscale(1)";
-                                    el.style.webkitFilter = "grayscale(1)";
-                                }
                             }
                             else {
                                 el.classList.add("section");
@@ -693,8 +688,6 @@ var powerbi;
                             h.style.fontFamily = optionFontFamily;
                             h.style.fontWeight = optionFontWeight;
                             h.style.textAlign = optionTextAlign;
-                            h.style.filter = "grayscale(0)";
-                            h.style.webkitFilter = "grayscale(0)";
                             el.appendChild(h);
                         }
                     };
@@ -722,11 +715,11 @@ var powerbi;
     (function (visuals) {
         var plugins;
         (function (plugins) {
-            plugins.scrollytellerE1D30D6506E94BB5AB73806C9D68D079_DEBUG = {
-                name: 'scrollytellerE1D30D6506E94BB5AB73806C9D68D079_DEBUG',
+            plugins.scrollytellerE1D30D6506E94BB5AB73806C9D68D079 = {
+                name: 'scrollytellerE1D30D6506E94BB5AB73806C9D68D079',
                 displayName: 'ScrollyTeller',
                 class: 'Visual',
-                version: '1.0.0',
+                version: '1.0.2',
                 apiVersion: '1.7.0',
                 create: function (options) { return new powerbi.extensibility.visual.scrollytellerE1D30D6506E94BB5AB73806C9D68D079.Visual(options); },
                 custom: true

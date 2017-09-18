@@ -84,12 +84,6 @@
 							{"value": "Right", "displayName": "Right"}
                         ]
                     }
-                },
-				"alternateGrayscale": {
-                    "displayName": "Alternate grayscale",
-                    "type": {
-                        "bool": true
-                    }
                 }
             }
         }

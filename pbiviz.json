@@ -4,7 +4,7 @@
     "displayName": "ScrollyTeller",
     "guid": "scrollytellerE1D30D6506E94BB5AB73806C9D68D079",
     "visualClassName": "Visual",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Enables scrollytelling with parallax effect",
     "supportUrl": "https://github.com/deldersveld/pbiScrollyTeller",
     "gitHubUrl": "https://github.com/deldersveld/pbiScrollyTeller"
