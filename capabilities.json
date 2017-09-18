@@ -13,26 +13,10 @@
     ],
     "objects": {
         "dataPoint": {
-            "displayName": "Data colors",
+            "displayName": "Display options",
             "properties": {
-                "defaultColor": {
-                    "displayName": "Default color",
-                    "type": {
-                        "fill": {
-                            "solid": {
-                                "color": true
-                            }
-                        }
-                    }
-                },
-                "showAllDataPoints": {
-                    "displayName": "Show all",
-                    "type": {
-                        "bool": true
-                    }
-                },
                 "fill": {
-                    "displayName": "Fill",
+                    "displayName": "Text Color",
                     "type": {
                         "fill": {
                             "solid": {
@@ -41,18 +25,70 @@
                         }
                     }
                 },
-                "fillRule": {
-                    "displayName": "Color saturation",
-                    "type": {
-                        "fill": {}
-                    }
-                },
-                 "fontSize": {
+                "fontSize": {
                     "displayName": "Text Size",
                     "type": {
                         "formatting": {
                             "fontSize": true
                         }
+                    }
+                },
+				"fontFamily": {
+                    "displayName": "Font family",
+                    "type": {
+                        "enumeration": [
+                            {"value": "Arial", "displayName": "Arial"},
+							{"value": "Arial Black", "displayName": "Arial Black"},
+							{"value": "Arial Unicode MS", "displayName": "Arial Unicode MS"},
+							{"value": "Bookman Old Style", "displayName": "Bookman Old Style"},
+							{"value": "Calibri", "displayName": "Calibri"},
+							{"value": "Cambria", "displayName": "Cambria"},
+							{"value": "Cambria Math", "displayName": "Cambria Math"},
+							{"value": "Candara", "displayName": "Candara"},
+							{"value": "Castellar", "displayName": "Castellar"},
+							{"value": "Comic Sans MS", "displayName": "Comic Sans MS"},
+							{"value": "Consolas", "displayName": "Consolas"},
+							{"value": "Constantia", "displayName": "Constantia"},
+							{"value": "Corbel", "displayName": "Corbel"},
+							{"value": "Courier New", "displayName": "Courier New"},
+							{"value": "Georgia", "displayName": "Georgia"},
+							{"value": "Impact", "displayName": "Impact"},
+							{"value": "Lucida Calligraphy", "displayName": "Lucida Calligraphy"},
+							{"value": "Lucida Sans Unicode", "displayName": "Lucida Sans Unicode"},
+							{"value": "Segoe UI", "displayName": "Segoe UI"},
+							{"value": "Segoe UI Light", "displayName": "Segoe UI Light"},
+							{"value": "Symbol", "displayName": "Symbol"},
+							{"value": "Tahoma", "displayName": "Tahoma"},
+							{"value": "Times New Roman", "displayName": "Times New Roman"},
+							{"value": "Trebuchet MS", "displayName": "Trebuchet MS"},
+							{"value": "Verdana", "displayName": "Verdana"},
+							{"value": "wf_standard-font", "displayName": "wf_standard-font"}
+                        ]
+                    }
+                },
+				"fontWeight": {
+                    "displayName": "Font weight",
+                    "type": {
+                        "enumeration": [
+                            {"value": "Normal", "displayName": "Normal"},
+							{"value": "Bold", "displayName": "Bold"}
+                        ]
+                    }
+                },
+				"textAlign": {
+                    "displayName": "Alignment",
+                    "type": {
+                        "enumeration": [
+                            {"value": "Center", "displayName": "Center"},
+							{"value": "Left", "displayName": "Left"},
+							{"value": "Right", "displayName": "Right"}
+                        ]
+                    }
+                },
+				"alternateGrayscale": {
+                    "displayName": "Alternate grayscale",
+                    "type": {
+                        "bool": true
                     }
                 }
             }

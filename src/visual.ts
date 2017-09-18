@@ -93,6 +93,14 @@ module powerbi.extensibility.visual {
         public update(options: VisualUpdateOptions) {
             this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
             //console.log('Visual update', options);
+			//console.log('Visual settings', this.settings);
+			
+			let optionFontSize = this.settings.dataPoint.fontSize.toString() + "px";
+			let optionFontColor = this.settings.dataPoint.fill;
+			let optionFontFamily = this.settings.dataPoint.fontFamily;
+			let optionFontWeight = this.settings.dataPoint.fontWeight;
+			let optionTextAlign = this.settings.dataPoint.textAlign;
+			//let optionAlternateGrayscale = this.settings.dataPoint.alternateGrayscale;
 			
 			let viewModel: ScrollyViewModel = visualTransform(options, this.host);
 			//console.log('ViewModel', viewModel);
@@ -114,8 +122,10 @@ module powerbi.extensibility.visual {
 					el.style.backgroundRepeat = "no-repeat";
 					el.style.backgroundSize = "100%";
 					el.style.transform = "translateZ(-1px) scale(1.5)";
-					el.style.filter = "grayscale(1)";
-					el.style.webkitFilter = "grayscale(1)";
+					//if(optionAlternateGrayscale === true) {
+					//	el.style.filter = "grayscale(1)";
+					//	el.style.webkitFilter = "grayscale(1)";
+					//}
 				}
 				else{
 					el.classList.add("section");
@@ -127,7 +137,14 @@ module powerbi.extensibility.visual {
 				
 				var h = document.createElement("h1");
 				h.innerHTML = data[i].scrollText;
-				el.classList.add("scrollyText");
+				h.classList.add("scrollyText");
+				h.style.color = optionFontColor;
+				h.style.fontSize = optionFontSize;
+				h.style.fontFamily = optionFontFamily;
+				h.style.fontWeight = optionFontWeight;
+				h.style.textAlign = optionTextAlign;
+				//h.style.filter = "grayscale(0)";
+				//h.style.webkitFilter = "grayscale(0)";
 				el.appendChild(h);
 			}
         }

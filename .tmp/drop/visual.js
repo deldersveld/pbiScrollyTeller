@@ -553,16 +553,18 @@ var powerbi;
                 scrollytellerE1D30D6506E94BB5AB73806C9D68D079.VisualSettings = VisualSettings;
                 var dataPointSettings = (function () {
                     function dataPointSettings() {
-                        // Default color
-                        this.defaultColor = "";
-                        // Show all
-                        this.showAllDataPoints = true;
                         // Fill
-                        this.fill = "";
-                        // Color saturation
-                        this.fillRule = "";
+                        this.fill = "#FFFFFF";
                         // Text Size
                         this.fontSize = 12;
+                        // Font Family
+                        this.fontFamily = "Segoe UI";
+                        // Font Weight
+                        this.fontWeight = "Normal";
+                        // Text Align
+                        this.textAlign = "Center";
+                        // Alternate odd numbered images as grayscale
+                        this.alternateGrayscale = true;
                     }
                     return dataPointSettings;
                 }());
@@ -647,6 +649,13 @@ var powerbi;
                     Visual.prototype.update = function (options) {
                         this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
                         //console.log('Visual update', options);
+                        //console.log('Visual settings', this.settings);
+                        var optionFontSize = this.settings.dataPoint.fontSize.toString() + "px";
+                        var optionFontColor = this.settings.dataPoint.fill;
+                        var optionFontFamily = this.settings.dataPoint.fontFamily;
+                        var optionFontWeight = this.settings.dataPoint.fontWeight;
+                        var optionTextAlign = this.settings.dataPoint.textAlign;
+                        var optionAlternateGrayscale = this.settings.dataPoint.alternateGrayscale;
                         var viewModel = visualTransform(options, this.host);
                         //console.log('ViewModel', viewModel);
                         var data = viewModel.scrollyDataPoints;
@@ -664,8 +673,10 @@ var powerbi;
                                 el.style.backgroundRepeat = "no-repeat";
                                 el.style.backgroundSize = "100%";
                                 el.style.transform = "translateZ(-1px) scale(1.5)";
-                                el.style.filter = "grayscale(1)";
-                                el.style.webkitFilter = "grayscale(1)";
+                                if (optionAlternateGrayscale === true) {
+                                    el.style.filter = "grayscale(1)";
+                                    el.style.webkitFilter = "grayscale(1)";
+                                }
                             }
                             else {
                                 el.classList.add("section");
@@ -676,7 +687,14 @@ var powerbi;
                             container.appendChild(el);
                             var h = document.createElement("h1");
                             h.innerHTML = data[i].scrollText;
-                            el.classList.add("scrollyText");
+                            h.classList.add("scrollyText");
+                            h.style.color = optionFontColor;
+                            h.style.fontSize = optionFontSize;
+                            h.style.fontFamily = optionFontFamily;
+                            h.style.fontWeight = optionFontWeight;
+                            h.style.textAlign = optionTextAlign;
+                            h.style.filter = "grayscale(0)";
+                            h.style.webkitFilter = "grayscale(0)";
                             el.appendChild(h);
                         }
                     };
@@ -704,8 +722,8 @@ var powerbi;
     (function (visuals) {
         var plugins;
         (function (plugins) {
-            plugins.scrollytellerE1D30D6506E94BB5AB73806C9D68D079 = {
-                name: 'scrollytellerE1D30D6506E94BB5AB73806C9D68D079',
+            plugins.scrollytellerE1D30D6506E94BB5AB73806C9D68D079_DEBUG = {
+                name: 'scrollytellerE1D30D6506E94BB5AB73806C9D68D079_DEBUG',
                 displayName: 'ScrollyTeller',
                 class: 'Visual',
                 version: '1.0.0',

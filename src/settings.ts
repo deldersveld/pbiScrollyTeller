@@ -33,16 +33,18 @@ module powerbi.extensibility.visual {
       }
 
     export class dataPointSettings {
-     // Default color
-      public defaultColor: string = "";
-     // Show all
-      public showAllDataPoints: boolean = true;
      // Fill
-      public fill: string = "";
-     // Color saturation
-      public fillRule: string = "";
+      public fill: string = "#FFFFFF";
      // Text Size
       public fontSize: number = 12;
+	 // Font Family
+      public fontFamily: string = "Segoe UI";
+	 // Font Weight
+      public fontWeight: string = "Normal";
+	 // Text Align
+      public textAlign: string = "Center";
+	 // Alternate odd numbered images as grayscale
+      public alternateGrayscale: boolean = true;
      }
 
 }
