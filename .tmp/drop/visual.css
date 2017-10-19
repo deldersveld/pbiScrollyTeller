@@ -43,6 +43,7 @@
   z-index: -1;
 }
 .visual-scrollytellerE1D30D6506E94BB5AB73806C9D68D079_DEBUG .scrollyText {
-  padding-left: 25px;
+  padding-left: 50%;
   padding-right: 25px;
+  word-wrap: break-word;
 }
