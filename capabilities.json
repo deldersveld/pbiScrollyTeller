@@ -43,7 +43,6 @@
 							{"value": "Bookman Old Style", "displayName": "Bookman Old Style"},
 							{"value": "Calibri", "displayName": "Calibri"},
 							{"value": "Cambria", "displayName": "Cambria"},
-							{"value": "Cambria Math", "displayName": "Cambria Math"},
 							{"value": "Candara", "displayName": "Candara"},
 							{"value": "Castellar", "displayName": "Castellar"},
 							{"value": "Comic Sans MS", "displayName": "Comic Sans MS"},
@@ -61,8 +60,7 @@
 							{"value": "Tahoma", "displayName": "Tahoma"},
 							{"value": "Times New Roman", "displayName": "Times New Roman"},
 							{"value": "Trebuchet MS", "displayName": "Trebuchet MS"},
-							{"value": "Verdana", "displayName": "Verdana"},
-							{"value": "wf_standard-font", "displayName": "wf_standard-font"}
+							{"value": "Verdana", "displayName": "Verdana"}
                         ]
                     }
                 },

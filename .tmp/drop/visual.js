@@ -608,11 +608,9 @@ var powerbi;
             (function (scrollytellerE1D30D6506E94BB5AB73806C9D68D079) {
                 "use strict";
                 var DataRoleHelper = powerbi.extensibility.utils.dataview.DataRoleHelper;
-                ;
-                ;
                 function visualTransform(options, host) {
                     var dataViews = options.dataViews;
-                    //console.log('visualTransform', dataViews);
+                    // console.log('visualTransform', dataViews);
                     var viewModel = {
                         scrollyDataPoints: []
                     };
@@ -634,29 +632,28 @@ var powerbi;
                             imageUrl: imageCategory.values[i].toString()
                         });
                     }
-                    //console.log('sc', scDataPoints);
+                    // console.log('sc', scDataPoints);
                     return {
                         scrollyDataPoints: scDataPoints
                     };
                 }
-                ;
                 var Visual = (function () {
                     function Visual(options) {
-                        //console.log('Visual constructor', options);
+                        // console.log('Visual constructor', options);
                         this.target = options.element;
                         this.target.innerHTML = "<div class=\"wrapper\" id=\"loader\"></div>";
                     }
                     Visual.prototype.update = function (options) {
                         this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
-                        //console.log('Visual update', options);
-                        //console.log('Visual settings', this.settings);
+                        // console.log('Visual update', options);
+                        // console.log('Visual settings', this.settings);
                         var optionFontSize = this.settings.dataPoint.fontSize.toString() + "px";
                         var optionFontColor = this.settings.dataPoint.fill;
                         var optionFontFamily = this.settings.dataPoint.fontFamily;
                         var optionFontWeight = this.settings.dataPoint.fontWeight;
                         var optionTextAlign = this.settings.dataPoint.textAlign;
                         var viewModel = visualTransform(options, this.host);
-                        //console.log('ViewModel', viewModel);
+                        // console.log('ViewModel', viewModel);
                         var data = viewModel.scrollyDataPoints;
                         var container = document.getElementById("loader");
                         while (container.firstChild) {
@@ -665,21 +662,20 @@ var powerbi;
                         for (var i = 0; i < data.length; i++) {
                             var el = document.createElement("section");
                             el.classList.add("div-" + i);
-                            if (i % 2 === 0) {
-                                el.classList.add("section");
-                                el.classList.add("parallax");
-                                el.style.backgroundImage = "url('" + data[i].imageUrl + "')";
-                                el.style.backgroundRepeat = "no-repeat";
-                                el.style.backgroundSize = "100%";
-                                el.style.transform = "translateZ(-1px) scale(1.5)";
-                            }
-                            else {
-                                el.classList.add("section");
-                                el.style.backgroundImage = "url('" + data[i].imageUrl + "')";
-                                el.style.backgroundRepeat = "no-repeat";
-                                el.style.backgroundSize = "100%";
-                            }
+                            el.classList.add("section");
+                            el.classList.add("parallax");
+                            el.style.backgroundImage = "url('" + data[i].imageUrl + "')";
+                            el.style.backgroundRepeat = "no-repeat";
+                            el.style.backgroundSize = "100%";
+                            el.style.transform = "translateZ(-1px) scale(1.5)";
+                            var b = document.createElement("section");
+                            b.classList.add("section2");
+                            b.style.backgroundImage = "url('" + data[i].imageUrl + "')";
+                            b.style.backgroundRepeat = "no-repeat";
+                            b.style.backgroundSize = "50vh";
+                            b.style.backgroundPosition = "left";
                             container.appendChild(el);
+                            container.appendChild(b);
                             var h = document.createElement("h1");
                             h.innerHTML = data[i].scrollText;
                             h.classList.add("scrollyText");
@@ -688,7 +684,7 @@ var powerbi;
                             h.style.fontFamily = optionFontFamily;
                             h.style.fontWeight = optionFontWeight;
                             h.style.textAlign = optionTextAlign;
-                            el.appendChild(h);
+                            b.appendChild(h);
                         }
                     };
                     Visual.parseSettings = function (dataView) {
@@ -715,8 +711,8 @@ var powerbi;
     (function (visuals) {
         var plugins;
         (function (plugins) {
-            plugins.scrollytellerE1D30D6506E94BB5AB73806C9D68D079 = {
-                name: 'scrollytellerE1D30D6506E94BB5AB73806C9D68D079',
+            plugins.scrollytellerE1D30D6506E94BB5AB73806C9D68D079_DEBUG = {
+                name: 'scrollytellerE1D30D6506E94BB5AB73806C9D68D079_DEBUG',
                 displayName: 'ScrollyTeller',
                 class: 'Visual',
                 version: '1.0.2',

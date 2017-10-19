@@ -26,130 +26,131 @@
 
 module powerbi.extensibility.visual {
     "use strict";
-	
-	import DataViewValueColumnGroup = powerbi.DataViewValueColumnGroup;
+
+    import DataViewValueColumnGroup = powerbi.DataViewValueColumnGroup;
     import DataRoleHelper = powerbi.extensibility.utils.dataview.DataRoleHelper;
-	
-	interface ScrollyDataPoint {
-		scrollText: string;
-		imageUrl: string;
-	};
-		
-	interface ScrollyViewModel {
-		scrollyDataPoints: ScrollyDataPoint[];
-	};
-		
-	function visualTransform(options: VisualUpdateOptions, host: IVisualHost): any {
-		let dataViews = options.dataViews;
-		//console.log('visualTransform', dataViews);
-		
-		let viewModel: ScrollyViewModel = {
-			scrollyDataPoints: []
-		};
-		
-		if (!dataViews
-			|| !dataViews[0]
-			|| !dataViews[0].categorical
-			|| !dataViews[0].categorical.categories
-			|| !dataViews[0].categorical.categories[0].source)
-			return viewModel;
-			
-		let categorical = dataViews[0].categorical;
-		
-		let scrollTextIndex = DataRoleHelper.getCategoryIndexOfRole(dataViews[0].categorical.categories, "category");
-		let imageIndex = DataRoleHelper.getCategoryIndexOfRole(dataViews[0].categorical.categories, "imageUrl");
-		
-		let scrollTextCategory = categorical.categories[scrollTextIndex];
-		let imageCategory = categorical.categories[imageIndex];
-		
-		let scDataPoints: ScrollyDataPoint[] = [];
-		
-		for (let i = 0; i < scrollTextCategory.values.length; i++) {
-			scDataPoints.push({
-				scrollText: scrollTextCategory.values[i].toString(),
-				imageUrl: imageCategory.values[i].toString()
-			});
-		}
-		
-		//console.log('sc', scDataPoints);
-		
-		return {
-			scrollyDataPoints: scDataPoints
-		};
-	};
-		
+
+    interface ScrollyDataPoint {
+        scrollText: string;
+        imageUrl: string;
+    }
+
+    interface ScrollyViewModel {
+        scrollyDataPoints: ScrollyDataPoint[];
+    }
+
+    function visualTransform(options: VisualUpdateOptions, host: IVisualHost): any {
+        let dataViews = options.dataViews;
+        // console.log('visualTransform', dataViews);
+
+        let viewModel: ScrollyViewModel = {
+            scrollyDataPoints: []
+        };
+
+        if (!dataViews
+            || !dataViews[0]
+            || !dataViews[0].categorical
+            || !dataViews[0].categorical.categories
+            || !dataViews[0].categorical.categories[0].source)
+            return viewModel;
+
+        let categorical = dataViews[0].categorical;
+
+        let scrollTextIndex = DataRoleHelper.getCategoryIndexOfRole(dataViews[0].categorical.categories, "category");
+        let imageIndex = DataRoleHelper.getCategoryIndexOfRole(dataViews[0].categorical.categories, "imageUrl");
+
+        let scrollTextCategory = categorical.categories[scrollTextIndex];
+        let imageCategory = categorical.categories[imageIndex];
+
+        let scDataPoints: ScrollyDataPoint[] = [];
+
+        for (let i = 0; i < scrollTextCategory.values.length; i++) {
+            scDataPoints.push({
+                scrollText: scrollTextCategory.values[i].toString(),
+                imageUrl: imageCategory.values[i].toString()
+            });
+        }
+
+        // console.log('sc', scDataPoints);
+
+        return {
+        scrollyDataPoints: scDataPoints
+        };
+    }
+
     export class Visual implements IVisual {
         private target: HTMLElement;
-		private host: IVisualHost;
+        private host: IVisualHost;
         private settings: VisualSettings;
         private textNode: Text;
-		
+
         constructor(options: VisualConstructorOptions) {
-            //console.log('Visual constructor', options);
+            // console.log('Visual constructor', options);
             this.target = options.element;
             this.target.innerHTML = `<div class="wrapper" id="loader"></div>`;
         }
 
         public update(options: VisualUpdateOptions) {
             this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
-            //console.log('Visual update', options);
-			//console.log('Visual settings', this.settings);
-			
-			let optionFontSize = this.settings.dataPoint.fontSize.toString() + "px";
-			let optionFontColor = this.settings.dataPoint.fill;
-			let optionFontFamily = this.settings.dataPoint.fontFamily;
-			let optionFontWeight = this.settings.dataPoint.fontWeight;
-			let optionTextAlign = this.settings.dataPoint.textAlign;
-			
-			let viewModel: ScrollyViewModel = visualTransform(options, this.host);
-			//console.log('ViewModel', viewModel);
-			
-			var data = viewModel.scrollyDataPoints;
-			
-			var container = document.getElementById("loader");
-			while (container.firstChild) {
-				container.removeChild(container.firstChild);
-			}
-			
-			for(var i=0; i < data.length; i++){
-				var el =  document.createElement("section");
-				el.classList.add("div-" + i);
-				if(i % 2 === 0){
-					el.classList.add("section");
-					el.classList.add("parallax");
-					el.style.backgroundImage = "url('" + data[i].imageUrl + "')";
-					el.style.backgroundRepeat = "no-repeat";
-					el.style.backgroundSize = "100%";
-					el.style.transform = "translateZ(-1px) scale(1.5)";
-				}
-				else{
-					el.classList.add("section");
-					el.style.backgroundImage = "url('" + data[i].imageUrl + "')";
-					el.style.backgroundRepeat = "no-repeat";
-					el.style.backgroundSize = "100%";
-				}
-				container.appendChild(el);
-				
-				var h = document.createElement("h1");
-				h.innerHTML = data[i].scrollText;
-				h.classList.add("scrollyText");
-				h.style.color = optionFontColor;
-				h.style.fontSize = optionFontSize;
-				h.style.fontFamily = optionFontFamily;
-				h.style.fontWeight = optionFontWeight;
-				h.style.textAlign = optionTextAlign;
-				el.appendChild(h);
-			}
+            // console.log('Visual update', options);
+            // console.log('Visual settings', this.settings);
+
+            let optionFontSize = this.settings.dataPoint.fontSize.toString() + "px";
+            let optionFontColor = this.settings.dataPoint.fill;
+            let optionFontFamily = this.settings.dataPoint.fontFamily;
+            let optionFontWeight = this.settings.dataPoint.fontWeight;
+            let optionTextAlign = this.settings.dataPoint.textAlign;
+
+            let viewModel: ScrollyViewModel = visualTransform(options, this.host);
+            // console.log('ViewModel', viewModel);
+
+            let data = viewModel.scrollyDataPoints;
+
+            let container = document.getElementById("loader");
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+
+            for (let i = 0; i < data.length; i++) {
+                let el =  document.createElement("section");
+                el.classList.add("div-" + i);
+                el.classList.add("section");
+                el.classList.add("parallax");
+                el.style.backgroundImage = "url('" + data[i].imageUrl + "')";
+                el.style.backgroundRepeat = "no-repeat";
+                el.style.backgroundSize = "100%";
+                el.style.transform = "translateZ(-1px) scale(1.5)";
+
+                let b =  document.createElement("section");
+                b.classList.add("section2");
+                b.style.backgroundImage = "url('" + data[i].imageUrl + "')";
+                b.style.backgroundRepeat = "no-repeat";
+                b.style.backgroundSize = "50vh";
+                b.style.backgroundPosition = "left";
+
+                container.appendChild(el);
+                container.appendChild(b);
+
+                let h = document.createElement("h1");
+                h.innerHTML = data[i].scrollText;
+                h.classList.add("scrollyText");
+                h.style.color = optionFontColor;
+                h.style.fontSize = optionFontSize;
+                h.style.fontFamily = optionFontFamily;
+                h.style.fontWeight = optionFontWeight;
+                h.style.textAlign = optionTextAlign;
+                b.appendChild(h);
+            }
         }
 
         private static parseSettings(dataView: DataView): VisualSettings {
             return VisualSettings.parse(dataView) as VisualSettings;
         }
 
-        /** 
-         * This function gets called for each of the objects defined in the capabilities files and allows you to select which of the 
+        /**
+         * This function gets called for each of the objects defined in the capabilities files and allows you to select which of the
          * objects and properties you want to expose to the users in the property pane.
-         * 
+         *
          */
         public enumerateObjectInstances(options: EnumerateVisualObjectInstancesOptions): VisualObjectInstance[] | VisualObjectInstanceEnumerationObject {
             return VisualSettings.enumerateObjectInstances(this.settings || VisualSettings.getDefault(), options);
