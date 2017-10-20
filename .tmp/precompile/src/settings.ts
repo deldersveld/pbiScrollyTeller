@@ -33,18 +33,12 @@ module powerbi.extensibility.visual.scrollytellerE1D30D6506E94BB5AB73806C9D68D07
       }
 
     export class dataPointSettings {
-     // Fill
-      public fill: string = "#FFFFFF";
-     // Text Size
+      public fontColor: string = "#FFFFFF";
       public fontSize: number = 12;
-	 // Font Family
       public fontFamily: string = "Segoe UI";
-	 // Font Weight
       public fontWeight: string = "Normal";
-	 // Text Align
       public textAlign: string = "Center";
-	 // Alternate odd numbered images as grayscale
-      public alternateGrayscale: boolean = true;
+      public wordWrap: string = "normal";
      }
 
 }

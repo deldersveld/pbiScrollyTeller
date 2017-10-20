@@ -553,18 +553,12 @@ var powerbi;
                 scrollytellerE1D30D6506E94BB5AB73806C9D68D079.VisualSettings = VisualSettings;
                 var dataPointSettings = (function () {
                     function dataPointSettings() {
-                        // Fill
-                        this.fill = "#FFFFFF";
-                        // Text Size
+                        this.fontColor = "#FFFFFF";
                         this.fontSize = 12;
-                        // Font Family
                         this.fontFamily = "Segoe UI";
-                        // Font Weight
                         this.fontWeight = "Normal";
-                        // Text Align
                         this.textAlign = "Center";
-                        // Alternate odd numbered images as grayscale
-                        this.alternateGrayscale = true;
+                        this.wordWrap = "normal";
                     }
                     return dataPointSettings;
                 }());
@@ -628,8 +622,8 @@ var powerbi;
                     var scDataPoints = [];
                     for (var i = 0; i < scrollTextCategory.values.length; i++) {
                         scDataPoints.push({
-                            scrollText: scrollTextCategory.values[i].toString(),
-                            imageUrl: imageCategory.values[i].toString()
+                            scrollText: scrollTextIndex === -1 ? "Add field to Text -->" : scrollTextCategory.values[i].toString(),
+                            imageUrl: imageIndex === -1 ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh9NPZZrS45zHvMPX-moeDysqUZ4Mnx5xnMA-8Iqx_wXjYteCkLg" : imageCategory.values[i].toString()
                         });
                     }
                     // console.log('sc', scDataPoints);
@@ -648,10 +642,11 @@ var powerbi;
                         // console.log('Visual update', options);
                         // console.log('Visual settings', this.settings);
                         var optionFontSize = this.settings.dataPoint.fontSize.toString() + "px";
-                        var optionFontColor = this.settings.dataPoint.fill;
+                        var optionFontColor = this.settings.dataPoint.fontColor;
                         var optionFontFamily = this.settings.dataPoint.fontFamily;
                         var optionFontWeight = this.settings.dataPoint.fontWeight;
                         var optionTextAlign = this.settings.dataPoint.textAlign;
+                        var optionWordWrap = this.settings.dataPoint.wordWrap;
                         var viewModel = visualTransform(options, this.host);
                         // console.log('ViewModel', viewModel);
                         var data = viewModel.scrollyDataPoints;
@@ -660,31 +655,35 @@ var powerbi;
                             container.removeChild(container.firstChild);
                         }
                         for (var i = 0; i < data.length; i++) {
-                            var el = document.createElement("section");
-                            el.classList.add("div-" + i);
-                            el.classList.add("section");
-                            el.classList.add("parallax");
-                            el.style.backgroundImage = "url('" + data[i].imageUrl + "')";
-                            el.style.backgroundRepeat = "no-repeat";
-                            el.style.backgroundSize = "100%";
-                            el.style.transform = "translateZ(-1px) scale(1.5)";
-                            var b = document.createElement("section");
-                            b.classList.add("section2");
-                            b.style.backgroundImage = "url('" + data[i].imageUrl + "')";
-                            b.style.backgroundRepeat = "no-repeat";
-                            b.style.backgroundSize = "50vh";
-                            b.style.backgroundPosition = "left";
-                            container.appendChild(el);
-                            container.appendChild(b);
-                            var h = document.createElement("h1");
-                            h.innerHTML = data[i].scrollText;
-                            h.classList.add("scrollyText");
-                            h.style.color = optionFontColor;
-                            h.style.fontSize = optionFontSize;
-                            h.style.fontFamily = optionFontFamily;
-                            h.style.fontWeight = optionFontWeight;
-                            h.style.textAlign = optionTextAlign;
-                            b.appendChild(h);
+                            var customImage = document.createElement("section");
+                            customImage.classList.add("img-" + i);
+                            customImage.classList.add("section");
+                            customImage.classList.add("parallax");
+                            customImage.style.backgroundImage = "url('" + data[i].imageUrl + "')";
+                            customImage.style.backgroundRepeat = "no-repeat";
+                            customImage.style.backgroundSize = "100%";
+                            customImage.style.transform = "translateZ(-1px) scale(1.5)";
+                            var story = document.createElement("section");
+                            story.classList.add("story");
+                            story.style.backgroundImage = "url('" + data[i].imageUrl + "')";
+                            story.style.backgroundRepeat = "no-repeat";
+                            story.style.backgroundSize = "50vh";
+                            story.style.backgroundPosition = "left";
+                            var textPane = document.createElement("div");
+                            textPane.classList.add("text-pane");
+                            container.appendChild(customImage);
+                            container.appendChild(story);
+                            var scrollText = document.createElement("h1");
+                            scrollText.innerHTML = data[i].scrollText;
+                            scrollText.classList.add("scrollyText");
+                            scrollText.style.color = optionFontColor;
+                            scrollText.style.fontSize = optionFontSize;
+                            scrollText.style.fontFamily = optionFontFamily;
+                            scrollText.style.fontWeight = optionFontWeight;
+                            scrollText.style.textAlign = optionTextAlign;
+                            scrollText.style.wordWrap = optionWordWrap;
+                            textPane.appendChild(scrollText);
+                            story.appendChild(textPane);
                         }
                     };
                     Visual.parseSettings = function (dataView) {
@@ -711,8 +710,8 @@ var powerbi;
     (function (visuals) {
         var plugins;
         (function (plugins) {
-            plugins.scrollytellerE1D30D6506E94BB5AB73806C9D68D079_DEBUG = {
-                name: 'scrollytellerE1D30D6506E94BB5AB73806C9D68D079_DEBUG',
+            plugins.scrollytellerE1D30D6506E94BB5AB73806C9D68D079 = {
+                name: 'scrollytellerE1D30D6506E94BB5AB73806C9D68D079',
                 displayName: 'ScrollyTeller',
                 class: 'Visual',
                 version: '1.0.2',

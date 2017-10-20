@@ -66,8 +66,8 @@ module powerbi.extensibility.visual {
 
         for (let i = 0; i < scrollTextCategory.values.length; i++) {
             scDataPoints.push({
-                scrollText: scrollTextCategory.values[i].toString(),
-                imageUrl: imageCategory.values[i].toString()
+                scrollText: scrollTextIndex === -1 ? "Add field to Text -->" : scrollTextCategory.values[i].toString(),
+                imageUrl: imageIndex === -1 ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh9NPZZrS45zHvMPX-moeDysqUZ4Mnx5xnMA-8Iqx_wXjYteCkLg" : imageCategory.values[i].toString()
             });
         }
 
@@ -96,10 +96,11 @@ module powerbi.extensibility.visual {
             // console.log('Visual settings', this.settings);
 
             let optionFontSize = this.settings.dataPoint.fontSize.toString() + "px";
-            let optionFontColor = this.settings.dataPoint.fill;
+            let optionFontColor = this.settings.dataPoint.fontColor;
             let optionFontFamily = this.settings.dataPoint.fontFamily;
             let optionFontWeight = this.settings.dataPoint.fontWeight;
             let optionTextAlign = this.settings.dataPoint.textAlign;
+            let optionWordWrap = this.settings.dataPoint.wordWrap;
 
             let viewModel: ScrollyViewModel = visualTransform(options, this.host);
             // console.log('ViewModel', viewModel);
@@ -112,34 +113,40 @@ module powerbi.extensibility.visual {
             }
 
             for (let i = 0; i < data.length; i++) {
-                let el =  document.createElement("section");
-                el.classList.add("div-" + i);
-                el.classList.add("section");
-                el.classList.add("parallax");
-                el.style.backgroundImage = "url('" + data[i].imageUrl + "')";
-                el.style.backgroundRepeat = "no-repeat";
-                el.style.backgroundSize = "100%";
-                el.style.transform = "translateZ(-1px) scale(1.5)";
+                let customImage =  document.createElement("section");
+                customImage.classList.add("img-" + i);
+                customImage.classList.add("section");
+                customImage.classList.add("parallax");
+                customImage.style.backgroundImage = "url('" + data[i].imageUrl + "')";
+                customImage.style.backgroundRepeat = "no-repeat";
+                customImage.style.backgroundSize = "100%";
+                customImage.style.transform = "translateZ(-1px) scale(1.5)";
 
-                let b =  document.createElement("section");
-                b.classList.add("section2");
-                b.style.backgroundImage = "url('" + data[i].imageUrl + "')";
-                b.style.backgroundRepeat = "no-repeat";
-                b.style.backgroundSize = "50vh";
-                b.style.backgroundPosition = "left";
+                let story =  document.createElement("section");
+                story.classList.add("story");
+                story.style.backgroundImage = "url('" + data[i].imageUrl + "')";
+                story.style.backgroundRepeat = "no-repeat";
+                story.style.backgroundSize = "50vh";
+                story.style.backgroundPosition = "left";
 
-                container.appendChild(el);
-                container.appendChild(b);
+                let textPane = document.createElement("div");
+                textPane.classList.add("text-pane");
 
-                let h = document.createElement("h1");
-                h.innerHTML = data[i].scrollText;
-                h.classList.add("scrollyText");
-                h.style.color = optionFontColor;
-                h.style.fontSize = optionFontSize;
-                h.style.fontFamily = optionFontFamily;
-                h.style.fontWeight = optionFontWeight;
-                h.style.textAlign = optionTextAlign;
-                b.appendChild(h);
+                container.appendChild(customImage);
+                container.appendChild(story);
+
+                let scrollText = document.createElement("h1");
+                scrollText.innerHTML = data[i].scrollText;
+                scrollText.classList.add("scrollyText");
+                scrollText.style.color = optionFontColor;
+                scrollText.style.fontSize = optionFontSize;
+                scrollText.style.fontFamily = optionFontFamily;
+                scrollText.style.fontWeight = optionFontWeight;
+                scrollText.style.textAlign = optionTextAlign;
+                scrollText.style.wordWrap = optionWordWrap;
+
+                textPane.appendChild(scrollText);
+                story.appendChild(textPane);
             }
         }
 

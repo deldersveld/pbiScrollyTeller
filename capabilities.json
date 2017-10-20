@@ -1,6 +1,11 @@
 {
     "dataRoles": [
         {
+            "displayName": "Sequence",
+            "name": "measure",
+            "kind": "Measure"
+        },
+        {
             "displayName": "Text",
             "name": "category",
             "kind": "Grouping"
@@ -13,10 +18,10 @@
     ],
     "objects": {
         "dataPoint": {
-            "displayName": "Display options",
+            "displayName": "Scrollyteller options",
             "properties": {
-                "fill": {
-                    "displayName": "Text Color",
+                "fontColor": {
+                    "displayName": "Text color",
                     "type": {
                         "fill": {
                             "solid": {
@@ -26,7 +31,7 @@
                     }
                 },
                 "fontSize": {
-                    "displayName": "Text Size",
+                    "displayName": "Text size",
                     "type": {
                         "formatting": {
                             "fontSize": true
@@ -74,12 +79,21 @@
                     }
                 },
 				"textAlign": {
-                    "displayName": "Alignment",
+                    "displayName": "Text align",
                     "type": {
                         "enumeration": [
                             {"value": "Center", "displayName": "Center"},
 							{"value": "Left", "displayName": "Left"},
 							{"value": "Right", "displayName": "Right"}
+                        ]
+                    }
+                },
+				"wordWrap": {
+                    "displayName": "Word wrap",
+                    "type": {
+                        "enumeration": [
+                            {"value": "normal", "displayName": "Normal"},
+							{"value": "break-word", "displayName": "Break word"}
                         ]
                     }
                 }
@@ -88,7 +102,21 @@
     },
     "dataViewMappings": [
         {
-            "categorical": {
+            "conditions": [
+                {
+                    "category": {
+                        "min": 1,
+                        "max": 1
+                    },
+                    "measure": {
+                        "max": 1
+                    },
+                    "imageUrl": {
+                        "min": 0,
+                        "max": 1
+                    }
+                }
+            ],"categorical": {
                 "categories": {
                 "select": [{
                     "for": {
@@ -107,5 +135,19 @@
             }
             }
         }
-    ]
+    ],
+    "sorting": {
+        "implicit": { 
+            "clauses": [
+                {
+                    "role": "measure",
+                    "direction": 1
+                },
+                {
+                    "role": "category",
+                    "direction": 1
+                }
+            ]
+        }
+    }
 }
